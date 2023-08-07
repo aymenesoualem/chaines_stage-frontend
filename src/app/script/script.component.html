@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="card card-3d mt-5">
+    <div class="card-header bg-primary text-white">Script Information</div>
+    <div class="card-body">
+      <div class="script-name">
+        <h3>Script:</h3>
+        <h3>{{ (script | async)?.name }}</h3>
+      </div>
+      <div class="chaine-details">
+        <h4>Fichiers:</h4>
+        <h4 *ngFor="let f of (script | async)?.fichiers">
+          <h5>{{ f.name }}</h5>
+        </h4>
+        <h4>Executables:</h4>
+        <h4 *ngFor="let e of (script | async)?.execs">
+          <h5>{{ e.name }}</h5>
+        </h4>
+      </div>
+      <div class="text-center mt-4">
+        <a class="btn btn-primary" routerLink="/chaines">
+          Chaines
+        </a>
+      </div>
+      <button class="btn btn-outline-primary" (click)="handleChaine()">
+        <i class="bi-arrow-90deg-left"></i>
+      </button>
+    </div>
+  </div>
+</div>

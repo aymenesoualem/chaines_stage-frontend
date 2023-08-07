@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="card col-md-6 offset-3 mt-5">
+    <div class="card-header bg-primary text-white">Nouvelle chaine</div>
+    <div class="card-body">
+      <form [formGroup]="newChaineFormGroup" (ngSubmit)="handleSaveChaine()" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <div class="form-group">
+            <label class="font-weight-bold">Nom:</label>
+            <input type="text" formControlName="name" class="form-control">
+            <span class="text-danger"
+                  *ngIf="newChaineFormGroup.controls['name'].touched
+                        && newChaineFormGroup.controls['name'].errors
+                        && newChaineFormGroup.controls['name'].errors!['required']">
+              Name is Required
+            </span>
+          </div>
+
+        </div>
+        <div class="d-grid">
+          <button [disabled]="newChaineFormGroup.invalid" class="btn btn-primary btn-lg rounded-end">Enregistrer</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

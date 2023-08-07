@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="card col-md-6 offset-3 mt-5">
+    <div class="card-header bg-primary text-white">Repertoire des chaines et scripts</div>
+    <div class="card-body">
+      <form [formGroup]="pathFormGroup" (ngSubmit)="handlePath()" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <div class="form-group">
+            <label class="font-weight-bold">Repertoire:</label>
+            <input type="text" formControlName="name" class="form-control">
+            <span class="text-danger"
+                  *ngIf="pathFormGroup.controls['name'].touched
+                        && pathFormGroup.controls['name'].errors
+                        && pathFormGroup.controls['name'].errors!['required']">
+              Path name is Required
+            </span>
+          </div>
+        </div>
+        <div class="d-grid">
+          <button [disabled]="pathFormGroup.invalid" class="btn btn-primary btn-lg rounded-end">Enregistrer répertoire</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

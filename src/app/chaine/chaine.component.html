@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="card card-3d mt-5">
+    <div class="card-header bg-primary text-white">Chaine Information</div>
+    <div class="card-body">
+      <div class="chaine-name">
+        <h4>Chaine:</h4>
+        <h4>{{ chaine.name }}</h4>
+      </div>
+      <div class="chaine-details">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>Scripts</th>
+            <th>Executables</th>
+            <th>Fichiers</th>
+            <th>ACTIONS</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let s of (scripts | async)">
+            <td>{{ s.name }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let e of s['execs']">{{ e.name }}</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li *ngFor="let f of s['fichiers']">{{ f.name }}</li>
+              </ul>
+            </td>
+            <td>
+              <span *ngIf="s.status === 'FOUND'" class="text-danger">
+              <button class="btn btn-outline-secondary" (click)="handleScript(s)">
+                <i class="bi-arrow-right"></i>
+              </button>
+                </span>
+            <span *ngIf="s.status === 'NOTFOUND'" class="text-danger">Script introuvable</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center mt-4">
+        <a class="btn btn-primary" routerLink="/chaines">
+          Chaines
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

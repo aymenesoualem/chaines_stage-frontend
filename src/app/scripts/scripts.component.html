@@ -1,0 +1,66 @@
+<div class="container mt-5" xmlns:paginate="http://www.w3.org/1999/xhtml"
+     xmlns:itemsPerPage="http://www.w3.org/1999/xhtml" xmlns:currentPage="http://www.w3.org/1999/xhtml">
+  <ng-container *ngIf="scripts | async as listScripts; else failureOrLoading">
+    <div class="card">
+      <div class="card-header bg-dark text-white">Scripts</div>
+      <div class="card-body">
+        <div *ngIf="searchFormGroup">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchScripts()">
+            <div class="input-group">
+              <label class="input-group-text">Name:</label>
+              <input type="text" formControlName="name" class="form-control">
+              <button class="btn btn-outline-success">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th class="text-start">Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let s of listScripts| paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
+            <td>{{ s.id }}</td>
+            <td>{{ s.name }}</td>
+            <td>
+              <span *ngIf="s.status === 'NOTFOUND'" class="text-danger">Script introuvable</span>
+              <span *ngIf="s.status === 'FOUND'" class="text-success">Vérifié</span>
+              <span *ngIf="s.status === null" class="text-primary">Chaine</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <!-- Add pagination controls -->
+        <pagination-controls
+          (pageChange)="onPageChange($event)"
+          [maxSize]="5"
+          previousLabel=""
+          nextLabel=""
+
+        ></pagination-controls>
+
+
+        <div class="text-center mt-4">
+          <a class="btn btn-outline-dark" routerLink="/home">
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #failureOrLoading>
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{ errorMessage }}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      Loading....
+    </ng-template>
+  </ng-template>
+</div>

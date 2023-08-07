@@ -1,0 +1,73 @@
+<div class="container mt-5">
+  <ng-container *ngIf="chaines | async as listChaines; else failureOrLoading">
+    <div class="card">
+      <div class="card-header bg-dark text-white">Chaines</div>
+      <div class="card-body">
+        <div *ngIf="searchFormGroup">
+          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchChaines()">
+            <div class="input-group">
+              <label class="input-group-text">Name:</label>
+              <input type="text" formControlName="name" class="form-control">
+              <button class="btn btn-outline-success">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th class="text-start">ACTIONS</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let c of listChaines | paginate: { itemsPerPage: pageSize, currentPage: currentPage }">
+            <td>{{ c.id }}</td>
+            <td>{{ c.name }}</td>
+            <td>
+              <div class="d-flex justify-content-start">
+                <button class="btn btn-outline-danger btn-action me-4" (click)="handleDeleteChaine(c)">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+                <button class="btn btn-outline-primary" (click)="handleChaine(c)">
+                  <i class="bi-arrow-right"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <pagination-controls
+          (pageChange)="onPageChange($event)"
+          [maxSize]="5"
+          previousLabel=""
+          nextLabel=""
+
+        ></pagination-controls>
+        <div class="text-center mt-4">
+          <a class="btn btn-outline-dark" routerLink="/home">
+            Back to Home
+          </a>
+        </div>
+          <a class="btn btn-outline-success" routerLink="/new-chaine">
+            <i class="bi-plus"></i>
+          </a>
+      </div>
+
+    </div>
+
+</ng-container>
+  <ng-template #failureOrLoading class="text-danger">
+    <ng-container *ngIf="errorMessage; else loading">
+      <div class="text-danger">
+        {{ errorMessage }}
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      Loading....
+    </ng-template>
+  </ng-template>
+</div>
