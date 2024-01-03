@@ -30,7 +30,8 @@ export class ChaineComponent implements OnInit {
 
   }
   handleScript(script: Script) {
-    this.router.navigateByUrl("/script/" + script.id);
+    this.router.navigateByUrl("/script/" + script.id
+    );
   }
 
 
